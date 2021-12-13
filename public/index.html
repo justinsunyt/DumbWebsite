@@ -1,18 +1,45 @@
 <html>
-<head>
-  <link rel="stylesheet" href="./styles.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;600&display=swap" rel="stylesheet">
-  <title>Why is Eula best girl?</title>
-</head>
-<body>
-  <div class="content">
-    <div class="header">
-      <div class="title">Why is Eula best girl?</div>
-      <a href="./sneeze.html"><button class="button">Find out</button></a>
+  <head>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;600&display=swap" rel="stylesheet">
+    <title>Why is Eula best girl?</title>
+  </head>
+  <body>
+    <div class="content">
+      <div class="header">
+        <div class="title">Why is Eula best girl?</div>
+        <a href="./sneeze.html"><button class="button findout">Find out</button></a>
+      </div>
+      <div class="eula"></div>
+      <div class="simon">
+          <div class="scroll">&darr; Scroll down to play Simon Says &darr;</div>
+          <div class="buttons">
+            <button class="button red" id="redButton"></button>
+            <button class="button green" id="greenButton"></button>
+            <button class="button blue" id="blueButton"></button>
+            <button class="button yellow" id="yellowButton"></button>
+          </div>
+      </div>
     </div>
-    <div class="eula"></div>
-  </div>
-</body>
+  </body>
+  <script>
+    document.getElementById("redButton").addEventListener("click", () => {
+      var redButton = document.getElementById("redButton");
+      redButton.classList.add("lit");
+    });
+    document.getElementById("greenButton").addEventListener("click", () => {
+      var greenButton = document.getElementById("greenButton");
+      greenButton.classList.add("lit");
+    });
+    document.getElementById("blueButton").addEventListener("click", () => {
+      var blueButton = document.getElementById("blueButton");
+      blueButton.classList.add("lit");
+    });
+    document.getElementById("yellowButton").addEventListener("click", () => {
+      var yellowButton = document.getElementById("yellowButton");
+      yellowButton.classList.add("lit");
+    });
+  </script>
 </html>

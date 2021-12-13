@@ -11,7 +11,6 @@ body {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
 }
 
 .header {
@@ -26,51 +25,97 @@ body {
 }
 
 .title {
-  font-size: 48px;
+  font-size: 60px;
   font-weight: 600;
 }
 
 .button {
-    width: 200px;
+    width: 55px;
     font-size: 16px;
     font-weight: 600;
     color: #fff;
     cursor: pointer;
-    margin: 20px;
     height: 55px;
     text-align:center;
     border: none;
     background-size: 300% 100%;
-
+    margin-right: 10px;
+    margin-left: 10px;
     border-radius: 50px;
     moz-transition: all .4s ease-in-out;
     -o-transition: all .4s ease-in-out;
     -webkit-transition: all .4s ease-in-out;
     transition: all .4s ease-in-out;
-
-    background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
-    box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
-
-    margin-top: 50px;
-    margin-bottom: 100px;
 }
 
-.button:hover {
-    background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
+.button.findout {
+  width: 200px;
+  margin-top: 50px;
+  margin-bottom: 100px;
+  background-image: linear-gradient(to right, #25aae1, #4481eb, #04befe, #3f86ed);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.button.findout:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
 }
 
 .eula {
-  width: 600px;
+  width: 542px;
   height: 300px;
   margin-top: -150px;
   background-image: url("https://www.pcgamesn.com/wp-content/uploads/2021/03/genshin-impact-eula-banner.jpg");
   background-size: cover;
   background-position: top;
   border-radius: 25px;
+}
+
+.simon {
+  margin-top: 50px;
+  margin-bottom: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.scroll {
+  margin-bottom: 100px;
+}
+
+.buttons {
+  display: flex;
+}
+
+.button.lit {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+}
+
+.button.red {
+  background-image: linear-gradient(to right, #cc2233, #dd3344, #ee4455, #ff5566);
+  box-shadow: 0 5px 15px rgba(242, 97, 103, .4);
+}
+
+.button.green {
+  background-image: linear-gradient(to right, #22bb33, #33cc44, #44dd55, #55ee66);
+  box-shadow: 0 4px 15px 0 rgba(23, 168, 108, 0.75);
+}
+
+.button.blue {
+  background-image: linear-gradient(to right, #2233bb, #3344cc, #4455dd, #5566ee);
+  box-shadow: 0 4px 15px 0 rgba(65, 132, 234, 0.75);
+}
+
+.button.yellow {
+  background-image: linear-gradient(to right, #bbcc22, #ccdd33, #ddee44, #eeff55);
+  box-shadow: 0 4px 15px 0 rgba(180, 200, 10, 0.75);
 }
 
 .gif-background {
