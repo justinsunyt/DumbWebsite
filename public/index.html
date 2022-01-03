@@ -43,7 +43,7 @@
     greenButton.disabled = true;
     blueButton.disabled = true;
     yellowButton.disabled = true;
-    gameOver.style.display = "none";
+    gameOver.style.visibility = "hidden";
 
     redButton.addEventListener("click", () => {
       flashColor(0);
@@ -68,7 +68,7 @@
     function play() {
       playButton.disabled = true;
       playButton.classList.add("disabled");
-      gameOver.style.display = "none";
+      gameOver.style.visibility = "hidden";
       correctSequence = [];
       score = -1;
       newRound();
@@ -137,7 +137,7 @@
       } else if (!checkEqual()) {
         playButton.disabled = false;
         playButton.classList.remove("disabled");
-        gameOver.style.display = "block";
+        gameOver.style.visibility = "visible";
       }
     }
 
