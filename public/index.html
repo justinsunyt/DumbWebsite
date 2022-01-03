@@ -10,7 +10,7 @@
     <div class="content">
       <div class="header">
         <div class="title">Why is Eula best girl?</div>
-        <a href="./sneeze.html"><button class="button findout">Find out</button></a>
+        <a href="./sneeze.html"><button class="button big" style="margin-bottom: 100px;">Find out</button></a>
       </div>
       <div class="eula"></div>
       <div class="simon">
@@ -21,25 +21,134 @@
             <button class="button blue" id="blueButton"></button>
             <button class="button yellow" id="yellowButton"></button>
           </div>
+          <button class="button big" id="playButton">Play</button>
+          <div class="score" id="score"></div>
+          <div class="gameOver" id="gameOver">Game Over</div>
       </div>
     </div>
   </body>
   <script>
-    document.getElementById("redButton").addEventListener("click", () => {
-      var redButton = document.getElementById("redButton");
-      redButton.classList.add("lit");
+    let redButton = document.getElementById("redButton");
+    let greenButton = document.getElementById("greenButton");
+    let blueButton = document.getElementById("blueButton");
+    let yellowButton = document.getElementById("yellowButton");
+    let playButton = document.getElementById("playButton");
+    let gameOver = document.getElementById("gameOver");
+
+    let correctSequence = [];
+    let userSequence = [];
+    let score = -1;
+
+    redButton.disabled = true;
+    greenButton.disabled = true;
+    blueButton.disabled = true;
+    yellowButton.disabled = true;
+    gameOver.style.display = "none";
+
+    redButton.addEventListener("click", () => {
+      flashColor(0);
+      checkColor(0);
     });
-    document.getElementById("greenButton").addEventListener("click", () => {
-      var greenButton = document.getElementById("greenButton");
-      greenButton.classList.add("lit");
+    greenButton.addEventListener("click", () => {
+      flashColor(1);
+      checkColor(1);
     });
-    document.getElementById("blueButton").addEventListener("click", () => {
-      var blueButton = document.getElementById("blueButton");
-      blueButton.classList.add("lit");
+    blueButton.addEventListener("click", () => {
+      flashColor(2);
+      checkColor(2);
     });
-    document.getElementById("yellowButton").addEventListener("click", () => {
-      var yellowButton = document.getElementById("yellowButton");
-      yellowButton.classList.add("lit");
+    yellowButton.addEventListener("click", () => {
+      flashColor(3);
+      checkColor(3);
     });
+    playButton.addEventListener("click", () => {
+      play();
+    });
+
+    function play() {
+      playButton.disabled = true;
+      playButton.classList.add("disabled");
+      gameOver.style.display = "none";
+      correctSequence = [];
+      score = -1;
+      newRound();
+    }
+
+    function newRound() {
+      userSequence = [];
+      score += 1;
+      document.getElementById("score").innerHTML = score;
+
+      redButton.disabled = true;
+      greenButton.disabled = true;
+      blueButton.disabled = true;
+      yellowButton.disabled = true;
+
+      let rand = Math.floor(Math.random() * 4);
+      console.log(rand);
+      correctSequence.push(rand);
+      console.log(correctSequence);
+      for (let i = 0; i < correctSequence.length; i++) {
+        setTimeout(() => {
+          flashColor(correctSequence[i]);
+        }, (i + 1) * 1000);
+      }
+      setTimeout(() => {
+        redButton.disabled = false;
+        greenButton.disabled = false;
+        blueButton.disabled = false;
+        yellowButton.disabled = false;
+      }, correctSequence.length * 1000);
+    }
+
+    function flashColor(color) {
+      switch (color) {
+        case (0):
+          redButton.classList.add("lit");
+          setTimeout(() => {
+            redButton.classList.remove("lit");
+          }, 0);
+          break;
+        case (1):
+          greenButton.classList.add("lit");
+          setTimeout(() => {
+            greenButton.classList.remove("lit");
+          }, 0);
+          break;
+        case (2):
+          blueButton.classList.add("lit");
+          setTimeout(() => {
+            blueButton.classList.remove("lit");
+          }, 0);
+          break;
+        case (3):
+          yellowButton.classList.add("lit");
+          setTimeout(() => {
+            yellowButton.classList.remove("lit");
+          }, 0);
+          break;
+      }
+    }
+
+    function checkColor(color) {
+      userSequence.push(color);
+      if ((userSequence.length == correctSequence.length) && checkEqual()) {
+        newRound();
+      } else if (!checkEqual()) {
+        playButton.disabled = false;
+        playButton.classList.remove("disabled");
+        gameOver.style.display = "block";
+      }
+    }
+
+    function checkEqual() {
+      for (let i = 0; i < userSequence.length; i++) {
+        if (userSequence[i] != correctSequence[i]) {
+          return false;
+        }
+      }
+      return true;
+    }
+
   </script>
 </html>
