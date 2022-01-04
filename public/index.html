@@ -23,6 +23,7 @@
           </div>
           <button class="button big" id="playButton">Play</button>
           <div class="score" id="score"></div>
+          <div class="score" id="highScore"></div>
           <div class="gameOver" id="gameOver">Game Over</div>
       </div>
     </div>
@@ -71,13 +72,20 @@
       gameOver.style.visibility = "hidden";
       correctSequence = [];
       score = -1;
+      if (window.localStorage.highScore == null) {
+        window.localStorage.highScore = 0;
+      }
       newRound();
     }
 
     function newRound() {
       userSequence = [];
       score += 1;
-      document.getElementById("score").innerHTML = score;
+      if (score > window.localStorage.highScore) {
+        window.localStorage.highScore = score;
+      }
+      document.getElementById("score").innerHTML = "Score: " + score;
+      document.getElementById("highScore").innerHTML = "High Score: " + window.localStorage.highScore;
 
       redButton.disabled = true;
       greenButton.disabled = true;
