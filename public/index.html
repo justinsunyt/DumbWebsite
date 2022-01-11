@@ -30,6 +30,7 @@
     </div>
   </div>
 </body>
+
 <script>
   let app = {
     button: {
@@ -45,139 +46,136 @@
       correctSequence: [],
       userSequence: [],
       score: -1
-    }
-  }
+    },
 
-  // let redButton = document.getElementById("redButton");
-  // let greenButton = document.getElementById("greenButton");
-  // let blueButton = document.getElementById("blueButton");
-  // let yellowButton = document.getElementById("yellowButton");
-  // let playButton = document.getElementById("playButton");
+    initialize: function() {
+      this.button.red.disabled = true;
+      this.button.green.disabled = true;
+      this.button.blue.disabled = true;
+      this.button.yellow.disabled = true;
+      this.data.gameOver.style.visibility = "hidden";
 
+      this.button.red.addEventListener("click", () => {
+        this.flashColor(0);
+        this.checkColor(0);
+      });
+      this.button.green.addEventListener("click", () => {
+        this.flashColor(1);
+        this.checkColor(1);
+      });
+      this.button.blue.addEventListener("click", () => {
+        this.flashColor(2);
+        this.checkColor(2);
+      });
+      this.button.yellow.addEventListener("click", () => {
+        this.flashColor(3);
+        this.checkColor(3);
+      });
+      this.button.play.addEventListener("click", () => {
+        this.play();
+      });
+    },
 
-  // let gameOver = document.getElementById("gameOver");
-  //
-  // let correctSequence = [];
-  // let userSequence = [];
-  // let score = -1;
-
-  app.button.red.disabled = true;
-  app.button.green.disabled = true;
-  app.button.blue.disabled = true;
-  app.button.yellow.disabled = true;
-  app.data.gameOver.style.visibility = "hidden";
-
-  app.button.red.addEventListener("click", () => {
-    flashColor(0);
-    checkColor(0);
-  });
-  app.button.green.addEventListener("click", () => {
-    flashColor(1);
-    checkColor(1);
-  });
-  app.button.blue.addEventListener("click", () => {
-    flashColor(2);
-    checkColor(2);
-  });
-  app.button.yellow.addEventListener("click", () => {
-    flashColor(3);
-    checkColor(3);
-  });
-  app.button.play.addEventListener("click", () => {
-    play();
-  });
-
-  function play() {
-    app.button.play.disabled = true;
-    app.button.play.classList.add("disabled");
-    app.data.gameOver.style.visibility = "hidden";
-    app.data.correctSequence = [];
-    app.data.score = -1;
-    if (window.localStorage.highScore == null) {
-      window.localStorage.highScore = 0;
-    }
-    newRound();
-  }
-
-  function newRound() {
-    app.data.userSequence = [];
-    app.data.score += 1;
-    if (app.data.score > window.localStorage.highScore) {
-      window.localStorage.highScore = app.data.score;
-    }
-    document.getElementById("score").innerHTML = "Score: " + app.data.score;
-    document.getElementById("highScore").innerHTML = "High Score: " + window.localStorage.highScore;
-
-    app.button.red.disabled = true;
-    app.button.green.disabled = true;
-    app.button.blue.disabled = true;
-    app.button.yellow.disabled = true;
-
-    let rand = Math.floor(Math.random() * 4);
-    console.log(rand);
-    app.data.correctSequence.push(rand);
-    console.log(app.data.correctSequence);
-    for (let i = 0; i < app.data.correctSequence.length; i++) {
-      setTimeout(() => {
-        flashColor(app.data.correctSequence[i]);
-      }, (i + 1) * 1000);
-    }
-    setTimeout(() => {
-      app.button.red.disabled = false;
-      app.button.green.disabled = false;
-      app.button.blue.disabled = false;
-      app.button.yellow.disabled = false;
-    }, app.data.correctSequence.length * 1000);
-  }
-
-  function flashColor(color) {
-    switch (color) {
-      case (0):
-        app.button.red.classList.add("lit");
-        setTimeout(() => {
-          app.button.red.classList.remove("lit");
-        }, 0);
-        break;
-      case (1):
-        app.button.green.classList.add("lit");
-        setTimeout(() => {
-          app.button.green.classList.remove("lit");
-        }, 0);
-        break;
-      case (2):
-        app.button.blue.classList.add("lit");
-        setTimeout(() => {
-          app.button.blue.classList.remove("lit");
-        }, 0);
-        break;
-      case (3):
-        app.button.yellow.classList.add("lit");
-        setTimeout(() => {
-          app.button.yellow.classList.remove("lit");
-        }, 0);
-        break;
-    }
-  }
-
-  function checkColor(color) {
-    app.data.userSequence.push(color);
-    if ((app.data.userSequence.length == app.data.correctSequence.length) && checkEqual()) {
-      newRound();
-    } else if (!checkEqual()) {
-      app.button.play.disabled = false;
-      app.button.play.classList.remove("disabled");
-      app.data.gameOver.style.visibility = "visible";
-    }
-  }
-
-  function checkEqual() {
-    for (let i = 0; i < app.data.userSequence.length; i++) {
-      if (app.data.userSequence[i] != app.data.correctSequence[i]) {
-        return false;
+    newRound: function() {
+      this.data.userSequence = [];
+      this.data.score += 1;
+      if (this.data.score > window.localStorage.highScore) {
+        window.localStorage.highScore = this.data.score;
       }
+      document.getElementById("score").innerHTML = "Score: " + this.data.score;
+      document.getElementById("highScore").innerHTML = "High Score: " + window.localStorage.highScore;
+
+      this.button.red.disabled = true;
+      this.button.green.disabled = true;
+      this.button.blue.disabled = true;
+      this.button.yellow.disabled = true;
+
+      let num = Math.floor(Math.random() * 4);
+      console.log(num);
+      this.data.correctSequence.push(num);
+      console.log(this.data.correctSequence);
+      for (let i = 0; i < this.data.correctSequence.length; i++) {
+        setTimeout(() => {
+          this.flashColor(this.data.correctSequence[i]);
+        }, (i + 1) * 1000);
+      }
+      setTimeout(() => {
+        this.button.red.disabled = false;
+        this.button.green.disabled = false;
+        this.button.blue.disabled = false;
+        this.button.yellow.disabled = false;
+      }, this.data.correctSequence.length * 1000);
+    },
+
+    play: function() {
+      this.button.play.disabled = true;
+      this.button.play.classList.add("disabled");
+      this.data.gameOver.style.visibility = "hidden";
+      this.data.correctSequence = [];
+      this.data.score = -1;
+      if (window.localStorage.highScore == null) {
+        window.localStorage.highScore = 0;
+      }
+      this.newRound();
+    },
+
+    flashColor: function(color) {
+      switch (color) {
+        case (0):
+          this.button.red.classList.add("lit");
+          setTimeout(() => {
+            this.button.red.classList.remove("lit");
+          }, 0);
+          break;
+        case (1):
+          this.button.green.classList.add("lit");
+          setTimeout(() => {
+            this.button.green.classList.remove("lit");
+          }, 0);
+          break;
+        case (2):
+          this.button.blue.classList.add("lit");
+          setTimeout(() => {
+            this.button.blue.classList.remove("lit");
+          }, 0);
+          break;
+        case (3):
+          this.button.yellow.classList.add("lit");
+          setTimeout(() => {
+            this.button.yellow.classList.remove("lit");
+          }, 0);
+          break;
+      }
+    },
+
+    checkColor: function(color) {
+      this.data.userSequence.push(color);
+      if ((this.data.userSequence.length == this.data.correctSequence.length) && this.checkEqual()) {
+        this.newRound();
+      } else if (!this.checkEqual()) {
+        this.button.play.disabled = false;
+        this.button.play.classList.remove("disabled");
+        this.data.gameOver.style.visibility = "visible";
+      }
+    },
+
+    checkEqual: function() {
+      for (let i = 0; i < this.data.userSequence.length; i++) {
+        if (this.data.userSequence[i] != this.data.correctSequence[i]) {
+          return false;
+        }
+      }
+      return true;
     }
-    return true;
+
   }
+
+app.initialize();
+
+
+
+
+
 </script>
 
 </html>
