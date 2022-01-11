@@ -1,162 +1,181 @@
 <html>
-  <head>
-    <link rel="stylesheet" href="./styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;600&display=swap" rel="stylesheet">
-    <title>Why is Eula best girl?</title>
-  </head>
-  <body>
-    <div class="content">
-      <div class="header">
-        <div class="title">Why is Eula best girl?</div>
-        <a href="./sneeze.html"><button class="button big" style="margin-bottom: 100px;">Find out</button></a>
-      </div>
-      <div class="eula"></div>
-      <div class="simon">
-          <div class="scroll">&darr; Scroll down to play Simon Says &darr;</div>
-          <div class="buttons">
-            <button class="button red" id="redButton"></button>
-            <button class="button green" id="greenButton"></button>
-            <button class="button blue" id="blueButton"></button>
-            <button class="button yellow" id="yellowButton"></button>
-          </div>
-          <button class="button big" id="playButton">Play</button>
-          <div class="score" id="score"></div>
-          <div class="score" id="highScore"></div>
-          <div class="gameOver" id="gameOver">Game Over</div>
-      </div>
+
+<head>
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;600&display=swap" rel="stylesheet">
+  <title>Why is Eula best girl?</title>
+</head>
+
+<body>
+  <div class="content">
+    <div class="header">
+      <div class="title">Why is Eula best girl?</div>
+      <a href="./sneeze.html"><button class="button big" style="margin-bottom: 100px;">Find out</button></a>
     </div>
-  </body>
-  <script>
-    let redButton = document.getElementById("redButton");
-    let greenButton = document.getElementById("greenButton");
-    let blueButton = document.getElementById("blueButton");
-    let yellowButton = document.getElementById("yellowButton");
-    let playButton = document.getElementById("playButton");
-    let gameOver = document.getElementById("gameOver");
+    <div class="eula"></div>
+    <div class="simon">
+      <div class="scroll">&darr; Scroll down to play Simon Says &darr;</div>
+      <div class="buttons">
+        <button class="button red" id="redButton"></button>
+        <button class="button green" id="greenButton"></button>
+        <button class="button blue" id="blueButton"></button>
+        <button class="button yellow" id="yellowButton"></button>
+      </div>
+      <button class="button big" id="playButton">Play</button>
+      <div class="score" id="score"></div>
+      <div class="score" id="highScore"></div>
+      <div class="gameOver" id="gameOver">Game Over</div>
+    </div>
+  </div>
+</body>
 
-    let correctSequence = [];
-    let userSequence = [];
-    let score = -1;
+<script>
+  let app = {
+    button: {
+      red: document.getElementById("redButton"),
+      green: document.getElementById("greenButton"),
+      blue: document.getElementById("blueButton"),
+      yellow: document.getElementById("yellowButton"),
+      play: document.getElementById("playButton")
+    },
 
-    redButton.disabled = true;
-    greenButton.disabled = true;
-    blueButton.disabled = true;
-    yellowButton.disabled = true;
-    gameOver.style.visibility = "hidden";
+    data: {
+      gameOver: document.getElementById("gameOver"),
+      correctSequence: [],
+      userSequence: [],
+      score: -1
+    },
 
-    redButton.addEventListener("click", () => {
-      flashColor(0);
-      checkColor(0);
-    });
-    greenButton.addEventListener("click", () => {
-      flashColor(1);
-      checkColor(1);
-    });
-    blueButton.addEventListener("click", () => {
-      flashColor(2);
-      checkColor(2);
-    });
-    yellowButton.addEventListener("click", () => {
-      flashColor(3);
-      checkColor(3);
-    });
-    playButton.addEventListener("click", () => {
-      play();
-    });
+    initialize: function() {
+      this.button.red.disabled = true;
+      this.button.green.disabled = true;
+      this.button.blue.disabled = true;
+      this.button.yellow.disabled = true;
+      this.data.gameOver.style.visibility = "hidden";
 
-    function play() {
-      playButton.disabled = true;
-      playButton.classList.add("disabled");
-      gameOver.style.visibility = "hidden";
-      correctSequence = [];
-      score = -1;
-      if (window.localStorage.highScore == null) {
-        window.localStorage.highScore = 0;
+      this.button.red.addEventListener("click", () => {
+        this.flashColor(0);
+        this.checkColor(0);
+      });
+      this.button.green.addEventListener("click", () => {
+        this.flashColor(1);
+        this.checkColor(1);
+      });
+      this.button.blue.addEventListener("click", () => {
+        this.flashColor(2);
+        this.checkColor(2);
+      });
+      this.button.yellow.addEventListener("click", () => {
+        this.flashColor(3);
+        this.checkColor(3);
+      });
+      this.button.play.addEventListener("click", () => {
+        this.play();
+      });
+    },
+
+    newRound: function() {
+      this.data.userSequence = [];
+      this.data.score += 1;
+      if (this.data.score > window.localStorage.highScore) {
+        window.localStorage.highScore = this.data.score;
       }
-      newRound();
-    }
-
-    function newRound() {
-      userSequence = [];
-      score += 1;
-      if (score > window.localStorage.highScore) {
-        window.localStorage.highScore = score;
-      }
-      document.getElementById("score").innerHTML = "Score: " + score;
+      document.getElementById("score").innerHTML = "Score: " + this.data.score;
       document.getElementById("highScore").innerHTML = "High Score: " + window.localStorage.highScore;
 
-      redButton.disabled = true;
-      greenButton.disabled = true;
-      blueButton.disabled = true;
-      yellowButton.disabled = true;
+      this.button.red.disabled = true;
+      this.button.green.disabled = true;
+      this.button.blue.disabled = true;
+      this.button.yellow.disabled = true;
 
-      let rand = Math.floor(Math.random() * 4);
-      console.log(rand);
-      correctSequence.push(rand);
-      console.log(correctSequence);
-      for (let i = 0; i < correctSequence.length; i++) {
+      let num = Math.floor(Math.random() * 4);
+      console.log(num);
+      this.data.correctSequence.push(num);
+      console.log(this.data.correctSequence);
+      for (let i = 0; i < this.data.correctSequence.length; i++) {
         setTimeout(() => {
-          flashColor(correctSequence[i]);
+          this.flashColor(this.data.correctSequence[i]);
         }, (i + 1) * 1000);
       }
       setTimeout(() => {
-        redButton.disabled = false;
-        greenButton.disabled = false;
-        blueButton.disabled = false;
-        yellowButton.disabled = false;
-      }, correctSequence.length * 1000);
-    }
+        this.button.red.disabled = false;
+        this.button.green.disabled = false;
+        this.button.blue.disabled = false;
+        this.button.yellow.disabled = false;
+      }, this.data.correctSequence.length * 1000);
+    },
 
-    function flashColor(color) {
+    play: function() {
+      this.button.play.disabled = true;
+      this.button.play.classList.add("disabled");
+      this.data.gameOver.style.visibility = "hidden";
+      this.data.correctSequence = [];
+      this.data.score = -1;
+      if (window.localStorage.highScore == null) {
+        window.localStorage.highScore = 0;
+      }
+      this.newRound();
+    },
+
+    flashColor: function(color) {
       switch (color) {
         case (0):
-          redButton.classList.add("lit");
+          this.button.red.classList.add("lit");
           setTimeout(() => {
-            redButton.classList.remove("lit");
+            this.button.red.classList.remove("lit");
           }, 0);
           break;
         case (1):
-          greenButton.classList.add("lit");
+          this.button.green.classList.add("lit");
           setTimeout(() => {
-            greenButton.classList.remove("lit");
+            this.button.green.classList.remove("lit");
           }, 0);
           break;
         case (2):
-          blueButton.classList.add("lit");
+          this.button.blue.classList.add("lit");
           setTimeout(() => {
-            blueButton.classList.remove("lit");
+            this.button.blue.classList.remove("lit");
           }, 0);
           break;
         case (3):
-          yellowButton.classList.add("lit");
+          this.button.yellow.classList.add("lit");
           setTimeout(() => {
-            yellowButton.classList.remove("lit");
+            this.button.yellow.classList.remove("lit");
           }, 0);
           break;
       }
-    }
+    },
 
-    function checkColor(color) {
-      userSequence.push(color);
-      if ((userSequence.length == correctSequence.length) && checkEqual()) {
-        newRound();
-      } else if (!checkEqual()) {
-        playButton.disabled = false;
-        playButton.classList.remove("disabled");
-        gameOver.style.visibility = "visible";
+    checkColor: function(color) {
+      this.data.userSequence.push(color);
+      if ((this.data.userSequence.length == this.data.correctSequence.length) && this.checkEqual()) {
+        this.newRound();
+      } else if (!this.checkEqual()) {
+        this.button.play.disabled = false;
+        this.button.play.classList.remove("disabled");
+        this.data.gameOver.style.visibility = "visible";
       }
-    }
+    },
 
-    function checkEqual() {
-      for (let i = 0; i < userSequence.length; i++) {
-        if (userSequence[i] != correctSequence[i]) {
+    checkEqual: function() {
+      for (let i = 0; i < this.data.userSequence.length; i++) {
+        if (this.data.userSequence[i] != this.data.correctSequence[i]) {
           return false;
         }
       }
       return true;
     }
 
-  </script>
+  }
+
+app.initialize();
+
+
+
+
+
+</script>
+
 </html>
