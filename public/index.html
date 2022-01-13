@@ -28,6 +28,7 @@
       <div class="score" id="highScore"></div>
       <div class="gameOver" id="gameOver">Game Over</div>
     </div>
+    <canvas id="canvas" width="300" height="500"></canvas>
   </div>
 </body>
 
@@ -172,8 +173,62 @@
 
 app.initialize();
 
+function initializeAnimation() {
+  window.requestAnimationFrame(draw);
+}
+
+function drawArt(ctx) {
+
+  ctx.save();
+  var time2 = new Date();
+  ctx.translate(time2.getSeconds(), 0);
+
+  // Draw triangle
+  ctx.beginPath();
+  ctx.moveTo(150, 0);
+  ctx.lineTo(100, 75);
+  ctx.lineTo(200, 75);
+  ctx.lineTo(150, 0);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.rect(100, 75, 100, 300);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.arc(100, 400, 50, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  ctx.save();
+  var time = new Date();
+  ctx.rotate(time.getSeconds() + time.getMilliseconds() / 1000);
+  ctx.restore();
+
+  ctx.beginPath();
+  ctx.arc(210, 400, 50, 0, 2 * Math.PI);
+  ctx.stroke();
+  ctx.restore();
+}
+
+function draw() {
+  let ctx = document.getElementById('canvas').getContext('2d');
+
+  ctx.globalCompositeOperation = 'destination-over';
+  ctx.clearRect(0, 0, 300, 500); // clear canvas
+
+  // Figure out what pen we wanna draw with
+  ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+
+  ctx.save();
+  drawArt(ctx);
+  ctx.restore();
 
 
+  // Call draw when the website is ready
+  window.requestAnimationFrame(draw);
+}
+
+initializeAnimation();
 
 
 </script>
