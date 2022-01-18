@@ -180,29 +180,33 @@ function initializeAnimation() {
 function drawArt(ctx) {
 
   ctx.save();
-  var time2 = new Date();
-  ctx.translate(time2.getSeconds(), 0);
+  //var time2 = new Date();
+  //ctx.translate(time2.getSeconds(), 0);
 
   // Draw triangle
+  var time = new Date();
+  ctx.rotate(2*time.getSeconds() + 2*time.getMilliseconds() / 1000);
   ctx.beginPath();
   ctx.moveTo(150, 0);
   ctx.lineTo(100, 75);
   ctx.lineTo(200, 75);
   ctx.lineTo(150, 0);
   ctx.stroke();
+  ctx.save();
+
 
   ctx.beginPath();
   ctx.rect(100, 75, 100, 300);
   ctx.stroke();
+  ctx.save();
+
+
 
   ctx.beginPath();
   ctx.arc(100, 400, 50, 0, 2 * Math.PI);
   ctx.stroke();
-
-  ctx.save();
-  var time = new Date();
-  ctx.rotate(time.getSeconds() + time.getMilliseconds() / 1000);
   ctx.restore();
+
 
   ctx.beginPath();
   ctx.arc(210, 400, 50, 0, 2 * Math.PI);
