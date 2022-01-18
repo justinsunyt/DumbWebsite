@@ -184,8 +184,7 @@ function drawArt(ctx) {
   //ctx.translate(time2.getSeconds(), 0);
 
   // Draw triangle
-  var time = new Date();
-  ctx.rotate(2*time.getSeconds() + 2*time.getMilliseconds() / 1000);
+
   ctx.beginPath();
   ctx.moveTo(150, 0);
   ctx.lineTo(100, 75);
@@ -201,13 +200,15 @@ function drawArt(ctx) {
   ctx.save();
 
 
-
+  var time = new Date();
+  ctx.rotate(2*time.getSeconds() - 2*time.getMilliseconds() / 1000);
   ctx.beginPath();
   ctx.arc(100, 400, 50, 0, 2 * Math.PI);
   ctx.stroke();
   ctx.restore();
 
-
+  var time2 = new Date();
+  ctx.rotate(2*time2.getSeconds() + 2*time2.getMilliseconds() / 1000);
   ctx.beginPath();
   ctx.arc(210, 400, 50, 0, 2 * Math.PI);
   ctx.stroke();
