@@ -207,6 +207,7 @@ function drawArt(ctx) {
   ctx.stroke();
   ctx.restore();
 
+  ctx.save();
   var time2 = new Date();
   ctx.rotate(2*time2.getSeconds() + 2*time2.getMilliseconds() / 1000);
   ctx.beginPath();
